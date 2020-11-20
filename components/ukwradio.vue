@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <h2>{{ frequenz }}</h2>
+    <input @change="check" class="freq" type="number" v-model="frequenz" />
     <input
       @mouseup.stop=""
       type="range"
       v-model="frequenz"
-      min="87.5"
+      :min="min"
       step="0.1"
-      max="120"
+      :max="max"
     />
   </div>
 </template>
@@ -17,7 +17,19 @@ import Vue from 'vue'
 export default Vue.extend({
   data: () => ({
     frequenz: 88.8,
+    min: 87.5,
+    max: 120,
   }),
+  methods: {
+    check() {
+      if (this.frequenz > this.max) {
+        this.frequenz = this.max
+      }
+      if (this.frequenz < this.min) {
+        this.frequenz = this.min
+      }
+    },
+  },
 })
 </script>
 
@@ -26,6 +38,15 @@ export default Vue.extend({
   input {
     width: 100%;
   }
+}
+.freq {
+  border: none !important;
+  background: var(--dark);
+  color: var(--light);
+  padding: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  margin: 1em 0;
 }
 h2 {
   color: var(--light);
