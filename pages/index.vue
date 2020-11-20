@@ -3,58 +3,63 @@
     <div class="header">
       <p>Raspberry Web Radio</p>
     </div>
-
-    <div class="wrapper">
-      <p class="sender">
-        <b>Ausgewählter sender:</b>
-        {{ selectedRadio.name || 'Radio auswählen' }}
-      </p>
-      <div class="flexcontainer">
-        <div
-          @click="selectedRadio = radio"
-          v-ripple
-          class="radio"
-          v-for="radio in radios"
-          :key="radio.path"
-        >
-          <p :class="{ selected: radio.value === selectedRadio.value }">
-            {{ radio.name }}
-          </p>
-          <img :src="radio.path" />
+    <div class="box">
+      <div v-touch:swipe.right="selectInternet" class="swipe"></div>
+      <div style="flex: 1">
+        <div class="mode">
+          <div
+            :class="{ selected: selectedComponent === 'internetradio' }"
+            v-ripple
+            class="modes"
+            @click="selectInternet"
+          >
+            Internet
+          </div>
+          <div
+            :class="{ selected: selectedComponent === 'ukwradio' }"
+            v-ripple
+            class="modes"
+            @click="selectUkw"
+          >
+            UKW
+          </div>
         </div>
+        <transition :name="transitionmode" mode="out-in">
+          <component :is="selectedComponent" />
+        </transition>
       </div>
+      <div v-touch:swipe.left="selectUkw" class="swipe"></div>
     </div>
   </div>
 </template>
-
 <script lang="ts">
 import Vue from 'vue'
-import { RadiosInterface } from 'types'
-import { radios } from '@/static/radios'
-import socket from '@/plugins/socket'
+import internetradio from '@/components/internetradio.vue'
+import ukwradio from '@/components/ukwradio.vue'
 export default Vue.extend({
-  data(): RadiosInterface {
-    return {
-      radios,
-      selectedRadio: {},
-    }
+  data: () => ({
+    selectedComponent: 'internetradio',
+    transitionmode: 'slide-left',
+  }),
+  methods: {
+    selectUkw() {
+      this.transitionmode = 'slide-left'
+      this.selectedComponent = 'ukwradio'
+    },
+    selectInternet() {
+      this.transitionmode = 'slide-right'
+      this.selectedComponent = 'internetradio'
+    },
   },
-  created() {},
+  components: { ukwradio, internetradio },
 })
 </script>
 
+
 <style lang="scss" scoped>
 .container {
-  .wrapper {
-    padding: 15px;
-    .sender {
-      margin: 1em 0;
-    }
-  }
-  .flexcontainer {
-    display: flex;
-    flex-flow: wrap;
-  }
+  min-height: 100vh;
+  overflow: hidden;
   .header {
     background: var(--dark);
     color: var(--light);
@@ -62,36 +67,33 @@ export default Vue.extend({
     font-size: 1.3em;
     box-shadow: var(--shadow);
   }
-  .radio {
-    margin: 10px;
-    flex: 1;
-    border: val(--border);
-    box-shadow: var(--shadow);
-    border-radius: var(--radius);
-    padding: 10px;
-    cursor: pointer;
-    transition: all 300ms;
-    &:active {
-      box-shadow: 0 0 10px -4px black;
-    }
-    p {
-      transition: 500ms;
-      border-radius: 6px 6px 0 0;
+  .mode {
+    display: flex;
+    margin: 1em auto;
+    justify-content: center;
+    .modes {
+      cursor: pointer;
+      border: 1px solid #dadada;
+      padding: 20px;
+      min-width: 100px;
       text-align: center;
-      margin: -10px;
-      margin-bottom: 10px;
-      padding: 5px;
-      border-bottom: 1px solid #dadada;
-    }
-    img {
-      width: 100%;
-      object-fit: cover;
+      transition: 300ms;
+      border-radius: var(--radius) 0 0 var(--radius);
+      &:last-child {
+        border-radius: 0 var(--radius) var(--radius) 0;
+      }
     }
   }
-}
+  .selected {
+    background: var(--dark);
+    color: var(--light);
+  }
+  .box {
+    display: flex;
 
-.selected {
-  background: var(--dark);
-  color: var(--light);
+    .swipe {
+      padding: 12px;
+    }
+  }
 }
 </style>

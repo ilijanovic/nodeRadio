@@ -33,4 +33,30 @@ html {
   --border: 1px solid #dadada;
   --radius: 6px;
 }
+
+.slide-left-enter {
+  transform: translateX(-100%);
+}
+
+.slide-left-leave-to {
+  transform: translateX(100%);
+}
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: 400ms;
+}
+
+/** slide-right */
+
+.slide-right-enter {
+  transform: translateX(100%);
+}
+
+.slide-right-leave-to {
+  transform: translateX(-100%);
+}
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: 400ms;
+}
 </style>
