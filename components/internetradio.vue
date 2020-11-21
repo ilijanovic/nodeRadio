@@ -24,7 +24,6 @@
 
 <script>
 import { radios } from '@/static/radios'
-import socket from '@/plugins/socket'
 export default {
   data(){
     return {
@@ -34,12 +33,13 @@ export default {
   },
 
 methods: {
-  selectRadio(radio){
+  async selectRadio(radio){
     this.selectedRadio = radio;
     let url = radio.streamUrl
-    this.$axios.$post("/api/stream", {
+    await this.$axios.$post("/api/stream", {
       url
     })
+    this.$emit("play")
   }
 }
 }
@@ -62,7 +62,8 @@ methods: {
     box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 10px;
-    cursor: pointer;
+    cursor: pointer;display: flex;
+    flex-flow: column;
     transition: all 300ms;
     &:active {
       box-shadow: 0 0 10px -4px black;
@@ -79,6 +80,7 @@ methods: {
     img {
       width: 100%;
       object-fit: cover;
+      margin: auto
     }
   }
   .selected {

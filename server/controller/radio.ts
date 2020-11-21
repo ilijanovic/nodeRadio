@@ -10,6 +10,14 @@ class RadioController {
         emitter.emit("abort")
         return res.status(200).json({ message: "Stream aborted" })
     }
+    public pauseHandler(req: Request, res: Response, next: NextFunction) {
+        emitter.emit("pause")
+        return res.status(200).json({ message: "Radio paused" })
+    }
+    public resumeHandler(req: Request, res: Response, next: NextFunction) {
+        emitter.emit("resume")
+        return res.status(200).json({ message: "Radio paused" })
+    }
 }
 
 

@@ -1,7 +1,3 @@
 
-import { ClientRequest } from "http"
-export function endStream(stream: ClientRequest) {
-    return new Promise(res => {
-        stream.end(res)
-    })
-}
+
+export const sleep = (ms: number): Promise<void> => new Promise(res => setTimeout(res, ms))

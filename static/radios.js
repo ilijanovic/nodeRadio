@@ -17,7 +17,15 @@ export const radios = [
     name: 'Kronehit',
     value: 'kronehit',
     bitRate: 128,
-    streamUrl: 'https://onair.krone.at/kronehit.mp3',
+    streamUrl: 'https://secureonair.krone.at/kronehit1058.mp3',
     path: '/images/kronehit.png',
+  },
+  {
+    name: 'Arabella',
+    value: 'arabella',
+    bitRate: 128,
+    streamUrl:
+      'https://arabellawien.stream.arabella.at/arabellavie?listenerid=2c0cf4124b23d3a8a9fbaf9bb8583985&awparams=companionAds%3Atrue',
+    path: '/images/arabella.png',
   },
 ]

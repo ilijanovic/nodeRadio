@@ -59,4 +59,22 @@ html {
 .slide-right-leave-active {
   transition: 400ms;
 }
+
+.slide-up-enter, .slide-up-leave-to {
+  transform: translateY(-100%);
+}
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: 400ms;
+}
+
+
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: 100ms;
+}
+
 </style>

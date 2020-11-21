@@ -8,5 +8,8 @@ router.post("/stream", <RequestHandler>radioController.playRadioHandler)
 
 router.post("/abort", <RequestHandler>radioController.abortHandler)
 
+router.post("/resume", <RequestHandler>radioController.resumeHandler)
+
+router.post("/pause", <RequestHandler>radioController.pauseHandler)
 
 export { router as postRoutes }

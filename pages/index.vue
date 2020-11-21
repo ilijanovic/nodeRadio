@@ -1,8 +1,11 @@
 <template>
   <div class="container">
-    <div class="header">
+    <transition name="slide-up" mode="out-in">
+    <div v-if="!playing" class="header">
       <p>Raspberry Web Radio</p>
     </div>
+    <controlpanel  v-if="playing" />
+    </transition>
     <div class="box">
       <div v-touch:swipe.right="selectInternet" class="swipe"></div>
       <div style="flex: 1">
@@ -27,23 +30,24 @@
         
         <transition :name="transitionmode" mode="out-in">
           <keep-alive>
-          <component :is="selectedComponent" />
+          <component @play="playing = true" :is="selectedComponent" />
           </keep-alive>
         </transition>
       </div>
       <div v-touch:swipe.left="selectUkw" class="swipe"></div>
     </div>
-    <primary @click.native="abort">Abbrechen</primary>
   </div>
 </template>
 <script>
 import primary from "@/components/buttons/primary"
 import internetradio from '@/components/internetradio'
 import ukwradio from '@/components/ukwradio'
+import controlpanel from "@/components/controlpanel"
 export default {
   data: () => ({
     selectedComponent: 'internetradio',
     transitionmode: 'slide-left',
+    playing: false
   }),
   methods: {
     selectUkw() {
@@ -58,7 +62,7 @@ export default {
       this.selectedComponent = 'internetradio'
     },
   },
-  components: { ukwradio, internetradio, primary },
+  components: { ukwradio, internetradio, primary, controlpanel },
 }
 </script>
 
@@ -73,6 +77,9 @@ export default {
     padding: 15px;
     font-size: 1.3em;
     box-shadow: var(--shadow);
+    height: 60px;
+    display: flex;
+    align-items: center
   }
   .mode {
     display: flex;
