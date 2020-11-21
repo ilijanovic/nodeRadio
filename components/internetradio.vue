@@ -6,7 +6,7 @@
     </p>
     <div class="flexcontainer">
       <div
-        @click="selectedRadio = radio"
+        @click="selectRadio(radio)"
         v-ripple
         class="radio"
         v-for="radio in radios"
@@ -22,20 +22,27 @@
 </template>
 
 
-<script lang="ts">
-import Vue from 'vue'
-import { RadiosInterface } from 'types'
+<script>
 import { radios } from '@/static/radios'
 import socket from '@/plugins/socket'
-export default Vue.extend({
-  data(): RadiosInterface {
+export default {
+  data(){
     return {
       radios,
       selectedRadio: {},
     }
   },
-  created() {},
-})
+
+methods: {
+  selectRadio(radio){
+    this.selectedRadio = radio;
+    let url = radio.streamUrl
+    this.$axios.$post("/api/stream", {
+      url
+    })
+  }
+}
+}
 </script>
 
 <style lang="scss" scoped>
@@ -50,6 +57,7 @@ export default Vue.extend({
   .radio {
     margin: 10px;
     flex: 1;
+    min-width: 120px;
     border: val(--border);
     box-shadow: var(--shadow);
     border-radius: var(--radius);

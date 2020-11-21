@@ -24,19 +24,23 @@
             UKW
           </div>
         </div>
+        
         <transition :name="transitionmode" mode="out-in">
+          <keep-alive>
           <component :is="selectedComponent" />
+          </keep-alive>
         </transition>
       </div>
       <div v-touch:swipe.left="selectUkw" class="swipe"></div>
     </div>
+    <primary @click.native="abort">Abbrechen</primary>
   </div>
 </template>
-<script lang="ts">
-import Vue from 'vue'
-import internetradio from '@/components/internetradio.vue'
-import ukwradio from '@/components/ukwradio.vue'
-export default Vue.extend({
+<script>
+import primary from "@/components/buttons/primary"
+import internetradio from '@/components/internetradio'
+import ukwradio from '@/components/ukwradio'
+export default {
   data: () => ({
     selectedComponent: 'internetradio',
     transitionmode: 'slide-left',
@@ -46,13 +50,16 @@ export default Vue.extend({
       this.transitionmode = 'slide-left'
       this.selectedComponent = 'ukwradio'
     },
+    abort(){
+      this.$axios.$post("/api/abort")
+    },
     selectInternet() {
       this.transitionmode = 'slide-right'
       this.selectedComponent = 'internetradio'
     },
   },
-  components: { ukwradio, internetradio },
-})
+  components: { ukwradio, internetradio, primary },
+}
 </script>
 
 
@@ -90,7 +97,8 @@ export default Vue.extend({
   }
   .box {
     display: flex;
-
+    max-width: 1000px;
+    margin: 0 auto;
     .swipe {
       padding: 12px;
     }
