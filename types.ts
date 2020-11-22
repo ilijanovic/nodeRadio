@@ -1,8 +1,9 @@
 
 
-export interface RadiosInterface {
+export interface StateInterface {
     radios: RadioInterface[],
     selectedRadio: RadioInterface | {},
+    playing: boolean
 }
 
 export interface RadioInterface {
@@ -10,10 +11,13 @@ export interface RadioInterface {
     streamUrl: string,
     name: string,
     path: string,
-    value: string
+    value: string,
+    loaded: boolean
 }
 
 export interface ConfigurationInterface {
     socket_port: number
 }
+
+
 

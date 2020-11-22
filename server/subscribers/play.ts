@@ -13,8 +13,10 @@ export let emitter = new EventEmitter()
 let request: ClientRequest | null = null
 let speaker: Speaker | null = null
 let response: IncomingMessage | null = null
-
+let isPaused: boolean = false
+export let currentUrl: string | null = null
 emitter.on("play", async (url) => {
+    currentUrl = url
     if (speaker) {
         speaker.destroy()
         await sleep(3000)
@@ -24,6 +26,9 @@ emitter.on("play", async (url) => {
         let decoder = new lame.Decoder(decoderConfig)
         response = res
         res.pipe(decoder, { end: false }).pipe(speaker, { end: false })
+        if (isPaused) {
+            speaker.cork()
+        }
     })
 })
 
@@ -35,12 +40,14 @@ emitter.on("abort", () => {
 
 emitter.on("pause", () => {
     if (speaker) {
+        isPaused = true
         speaker.cork()
     }
 })
 
 emitter.on("resume", () => {
     if (speaker) {
+        isPaused = false
         speaker.uncork()
 
     }

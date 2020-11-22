@@ -1,21 +1,25 @@
 <template>
     <div class="player">
-        <p>Spielt</p>
+        <p style="font-size: 1.5em">Spielt: {{ radio.name }}</p>
         <transition name="fade" mode="out-in">
             <PauseIcon key="1" @click="pauseRadio" v-if="!pause" size="2.5x" />
             <PlayIcon key="2" @click="resumeRadio" v-if="pause" size="2.5x" />
-        
         </transition>
         </div>
 </template>
 <script>
 import {PlayIcon, PauseIcon} from "vue-feather-icons"
-
+import {mapGetters} from "vuex"
 export default {
     data(){
         return {
             pause: false,
         }
+    },
+    computed: {
+        ...mapGetters({
+            radio: "selectedRadio"
+        })
     },
     methods: {
        pauseRadio(){

@@ -1,21 +1,20 @@
 <template>
   <div class="wrapper">
-    <p class="sender">
-      <b>Ausgewählter sender:</b>
-      {{ selectedRadio.name || 'Radio auswählen' }}
-    </p>
+
     <div class="flexcontainer">
       <div
         @click="selectRadio(radio)"
         v-ripple
         class="radio"
-        v-for="radio in radios"
+        v-for="(radio, i) in radios"
         :key="radio.path"
+        :style="{opacity: radio.loaded ? 1: 0}"
+        :class="{disabled: radio.value === selectedRadio.value}"
       >
         <p :class="{ selected: radio.value === selectedRadio.value }">
           {{ radio.name }}
         </p>
-        <img :src="radio.path" />
+        <img @load="$store.commit('IMAGE_LOADED',i )" :src="radio.path" />
       </div>
     </div>
   </div>
@@ -23,23 +22,29 @@
 
 
 <script>
-import { radios } from '@/static/radios'
+import {mapGetters} from "vuex"
 export default {
-  data(){
-    return {
-      radios,
-      selectedRadio: {},
-    }
-  },
 
+computed: {
+  ...mapGetters({
+    radios: "radios",
+    selectedRadio: "selectedRadio"
+  })
+ 
+},
+ async created(){
+    let url =  await this.$axios.$get("/api/currentUrl")
+   this.$store.commit("SET_RADIO_BY_URL", url)
+   console.log("created")
+  
+  },
 methods: {
   async selectRadio(radio){
-    this.selectedRadio = radio;
+    this.$store.commit("SET_RADIO", radio)
     let url = radio.streamUrl
     await this.$axios.$post("/api/stream", {
       url
     })
-    this.$emit("play")
   }
 }
 }
@@ -57,7 +62,7 @@ methods: {
   .radio {
     margin: 10px;
     flex: 1;
-    min-width: 120px;
+    min-width: 130px;
     border: val(--border);
     box-shadow: var(--shadow);
     border-radius: var(--radius);
@@ -87,5 +92,9 @@ methods: {
     background: var(--dark);
     color: var(--light);
   }
+}
+.disabled {
+  background: #ecf0f1;
+  pointer-events:none
 }
 </style>

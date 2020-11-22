@@ -43,7 +43,7 @@ html {
 }
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: 400ms;
+  transition: linear 200ms;
 }
 
 /** slide-right */
@@ -57,7 +57,7 @@ html {
 }
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: 400ms;
+  transition: linear 200ms;
 }
 
 .slide-up-enter, .slide-up-leave-to {

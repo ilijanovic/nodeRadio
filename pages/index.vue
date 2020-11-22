@@ -29,9 +29,9 @@
         </div>
         
         <transition :name="transitionmode" mode="out-in">
-          <keep-alive>
-          <component @play="playing = true" :is="selectedComponent" />
-          </keep-alive>
+        
+          <component  :is="selectedComponent" />
+         
         </transition>
       </div>
       <div v-touch:swipe.left="selectUkw" class="swipe"></div>
@@ -43,12 +43,17 @@ import primary from "@/components/buttons/primary"
 import internetradio from '@/components/internetradio'
 import ukwradio from '@/components/ukwradio'
 import controlpanel from "@/components/controlpanel"
+import {mapGetters} from "vuex"
 export default {
   data: () => ({
     selectedComponent: 'internetradio',
     transitionmode: 'slide-left',
-    playing: false
   }),
+  computed: {
+    ...mapGetters({
+      playing: "playing"
+    })
+  },
   methods: {
     selectUkw() {
       this.transitionmode = 'slide-left'
