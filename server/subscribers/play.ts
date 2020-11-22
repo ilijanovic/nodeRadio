@@ -19,7 +19,7 @@ emitter.on("play", async (url) => {
     currentUrl = url
     if (speaker) {
         speaker.destroy()
-        await sleep(3000)
+        await sleep(500)
     }
     request = https.get(url, (res: IncomingMessage) => {
         speaker = new Speaker(speakerConfig)

@@ -16,16 +16,16 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
-
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '@/plugins/ripple', ssr: false },
     { ssr: false, src: '@/plugins/touch' },
   ],
-
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
-
+  axios: {
+     baseURL: "/"
+  },
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/typescript
@@ -41,7 +41,7 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  
   serverMiddleware: ['~/server'],
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
