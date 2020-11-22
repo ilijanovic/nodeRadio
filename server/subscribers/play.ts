@@ -35,6 +35,7 @@ emitter.on("play", async (url) => {
 emitter.on("abort", () => {
     if (speaker) {
         speaker.destroy()
+
     }
 })
 
