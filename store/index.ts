@@ -36,6 +36,14 @@ export const state = (): StateInterface => ({
             path: '/images/arabella.png',
             loaded: false
         },
+        {
+            name: "Ö1",
+            value: "oe1",
+            bitRate: 128,
+            streamUrl: "https://orf-live.ors-shoutcast.at/oe1-q2a",
+            path: "/images/oe1.png",
+            loaded: false
+        }
     ],
     playing: false
 })
