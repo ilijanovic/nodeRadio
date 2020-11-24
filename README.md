@@ -50,7 +50,7 @@ After cloning navigate into the folder with `cd nodeRadio`
 
 Now you need to install the npm packages with `npm install`.
 
->This could lead to some accessing errors. There are several ways to solve it
+>This could lead to some accessing errors. There are several ways to solve the error
 >1. Try with sudo: `sudo npm i`
 >2. Try to reclaim ownership: `sudo chown -R $(whoami) ~/.npm`
 >3. Try with unsafe perm: `npm i --unsafe-perm`
