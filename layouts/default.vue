@@ -60,7 +60,8 @@ html {
   transition: linear 200ms;
 }
 
-.slide-up-enter, .slide-up-leave-to {
+.slide-up-enter,
+.slide-up-leave-to {
   transform: translateY(-100%);
 }
 .slide-up-enter-active,
@@ -68,13 +69,12 @@ html {
   transition: 400ms;
 }
 
-
-.fade-enter, .fade-leave-to {
-  opacity: 0
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 .fade-enter-active,
 .fade-leave-active {
   transition: 100ms;
 }
-
 </style>

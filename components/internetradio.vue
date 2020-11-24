@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-
     <div class="flexcontainer">
       <div
         @click="selectRadio(radio)"
@@ -8,13 +7,13 @@
         class="radio"
         v-for="(radio, i) in radios"
         :key="radio.path"
-        :style="{opacity: radio.loaded ? 1: 0}"
-        :class="{disabled: radio.value === selectedRadio.value}"
+        :style="{ opacity: radio.loaded ? 1 : 0 }"
+        :class="{ disabled: radio.value === selectedRadio.value }"
       >
         <p :class="{ selected: radio.value === selectedRadio.value }">
           {{ radio.name }}
         </p>
-        <img @load="$store.commit('IMAGE_LOADED',i )" :src="radio.path" />
+        <img @load="$store.commit('IMAGE_LOADED', i)" :src="radio.path" />
       </div>
     </div>
   </div>
@@ -22,31 +21,28 @@
 
 
 <script>
-import {mapGetters} from "vuex"
+import { mapGetters } from 'vuex'
 export default {
-
-computed: {
-  ...mapGetters({
-    radios: "radios",
-    selectedRadio: "selectedRadio"
-  })
- 
-},
- async created(){
-    let url =  await this.$axios.$get("/api/currentUrl")
-   this.$store.commit("SET_RADIO_BY_URL", url)
-   console.log("created")
-  
+  computed: {
+    ...mapGetters({
+      radios: 'radios',
+      selectedRadio: 'selectedRadio',
+    }),
   },
-methods: {
-  async selectRadio(radio){
-    this.$store.commit("SET_RADIO", radio)
-    let url = radio.streamUrl
-    await this.$axios.$post("/api/stream", {
-      url
-    })
-  }
-}
+  async created() {
+    let url = await this.$axios.$get('/api/currentUrl')
+    this.$store.commit('SET_RADIO_BY_URL', url)
+    console.log('created')
+  },
+  methods: {
+    async selectRadio(radio) {
+      this.$store.commit('SET_RADIO', radio)
+      let url = radio.streamUrl
+      await this.$axios.$post('/api/stream', {
+        url,
+      })
+    },
+  },
 }
 </script>
 
@@ -67,7 +63,8 @@ methods: {
     box-shadow: var(--shadow);
     border-radius: var(--radius);
     padding: 10px;
-    cursor: pointer;display: flex;
+    cursor: pointer;
+    display: flex;
     flex-flow: column;
     transition: all 300ms;
     &:active {
@@ -85,7 +82,7 @@ methods: {
     img {
       width: 100%;
       object-fit: cover;
-      margin: auto
+      margin: auto;
     }
   }
   .selected {
@@ -95,6 +92,6 @@ methods: {
 }
 .disabled {
   background: #ecf0f1;
-  pointer-events:none
+  pointer-events: none;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <transition name="slide-up" mode="out-in">
-    <div v-if="!playing" class="header">
-      <p>Raspberry Web Radio</p>
-    </div>
-    <controlpanel  v-if="playing" />
+      <div v-if="!playing" class="header">
+        <p>Raspberry Web Radio</p>
+      </div>
+      <controlpanel v-if="playing" />
     </transition>
     <div class="box">
       <div v-touch:swipe.right="selectInternet" class="swipe"></div>
@@ -27,11 +27,9 @@
             UKW
           </div>
         </div>
-        
+
         <transition :name="transitionmode" mode="out-in">
-        
-          <component  :is="selectedComponent" />
-         
+          <component :is="selectedComponent" />
         </transition>
       </div>
       <div v-touch:swipe.left="selectUkw" class="swipe"></div>
@@ -39,11 +37,11 @@
   </div>
 </template>
 <script>
-import primary from "@/components/buttons/primary"
+import primary from '@/components/buttons/primary'
 import internetradio from '@/components/internetradio'
 import ukwradio from '@/components/ukwradio'
-import controlpanel from "@/components/controlpanel"
-import {mapGetters} from "vuex"
+import controlpanel from '@/components/controlpanel'
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
     selectedComponent: 'internetradio',
@@ -51,16 +49,16 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      playing: "playing"
-    })
+      playing: 'playing',
+    }),
   },
   methods: {
     selectUkw() {
       this.transitionmode = 'slide-left'
       this.selectedComponent = 'ukwradio'
     },
-    abort(){
-      this.$axios.$post("/api/abort")
+    abort() {
+      this.$axios.$post('/api/abort')
     },
     selectInternet() {
       this.transitionmode = 'slide-right'
@@ -84,7 +82,7 @@ export default {
     box-shadow: var(--shadow);
     height: 60px;
     display: flex;
-    align-items: center
+    align-items: center;
   }
   .mode {
     display: flex;
