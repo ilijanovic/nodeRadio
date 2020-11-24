@@ -39,9 +39,6 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
   ],
-  server: {
-     host: "0.0.0.0"
-  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   
   serverMiddleware: ['~/server'],
