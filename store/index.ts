@@ -2,6 +2,7 @@ import { RadioInterface, StateInterface } from "@/types"
 
 export const state = (): StateInterface => ({
     selectedRadio: {},
+    soundControl: false,
     radios: [
         {
             name: 'Hitradio Ö3',
@@ -62,11 +63,15 @@ export const mutations = {
     },
     IMAGE_LOADED(state: StateInterface, index: number) {
         state.radios[index].loaded = true
+    },
+    SET_SOUND_CONTROL(state: StateInterface, payload: boolean) {
+        state.soundControl = payload
     }
 }
 
 export const getters = {
     radios: (state: StateInterface) => state.radios,
     selectedRadio: (state: StateInterface) => state.selectedRadio,
-    playing: (state: StateInterface) => state.playing
+    playing: (state: StateInterface) => state.playing,
+    soundControl: (state: StateInterface) => state.soundControl
 }

@@ -65,7 +65,12 @@ export default {
       this.selectedComponent = 'internetradio'
     },
   },
-  components: { ukwradio, internetradio, primary, controlpanel },
+  components: {
+    ukwradio,
+    internetradio,
+    primary,
+    controlpanel,
+  },
 }
 </script>
 
@@ -73,7 +78,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 100vh;
-  overflow: hidden;
   .header {
     background: var(--dark);
     color: var(--light);

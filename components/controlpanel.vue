@@ -1,6 +1,6 @@
 <template>
   <div class="player">
-    <p style="font-size: 1.5em">Spielt: {{ radio.name }}</p>
+    <p style="font-size: 1.5em; margin-right: auto">Spielt: {{ radio.name }}</p>
     <transition name="fade" mode="out-in">
       <PauseIcon key="1" @click="pauseRadio" v-if="!pause" size="2.5x" />
       <PlayIcon key="2" @click="resumeRadio" v-if="pause" size="2.5x" />
@@ -11,7 +11,6 @@
 import { PlayIcon, PauseIcon } from 'vue-feather-icons'
 import { mapGetters } from 'vuex'
 export default {
-  mounted() {},
   data() {
     return {
       pause: false,
@@ -31,6 +30,9 @@ export default {
       this.pause = false
       this.$axios.$post('/api/resume')
     },
+    openSoundControl() {
+      this.$store.commit('SET_SOUND_CONTROL', true)
+    },
   },
   components: {
     PlayIcon,
@@ -40,6 +42,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .player {
+  top: 0;
+  position: sticky;
   height: 60px;
   background: var(--dark);
   padding: 10px;

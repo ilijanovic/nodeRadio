@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { emitter, currentUrl } from "../subscribers/play"
+import { emitter, currentUrl, vol } from "../subscribers/play"
 class RadioController {
     public playRadioHandler(req: Request, res: Response, next: NextFunction) {
         emitter.emit("play", req.body.url)
@@ -20,6 +20,9 @@ class RadioController {
     }
     public getCurrentUrlHandler(req: Request, res: Response, next: NextFunction) {
         return res.status(200).json(currentUrl)
+    }
+    public getVolHandler(req: Request, res: Response, next: NextFunction) {
+        return res.status(200).json(vol)
     }
 }
 

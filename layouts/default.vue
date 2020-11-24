@@ -1,10 +1,54 @@
 <template>
   <div>
+    <transition mode="out-in" name="fade">
+      <soundcontrol key="1" v-if="sound" />
+      <SpeakerIcon
+        v-if="!sound"
+        @click="openSoundControl"
+        style="margin: 0 10px"
+        size="2.8x"
+        class="speaker"
+      />
+    </transition>
+
     <Nuxt />
   </div>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+import soundcontrol from '@/components/soundcontrol'
 
+import { SpeakerIcon } from 'vue-feather-icons'
+export default {
+  components: {
+    soundcontrol,
+    SpeakerIcon,
+  },
+  computed: {
+    ...mapGetters({
+      sound: 'soundControl',
+    }),
+  },
+  methods: {
+    openSoundControl() {
+      this.$store.commit('SET_SOUND_CONTROL', true)
+    },
+  },
+}
+</script>
 <style>
+.speaker {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+  background: var(--dark);
+  height: 60px;
+  width: 60px;
+  padding: 12px;
+  color: var(--light);
+  border-radius: 50%;
+}
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;

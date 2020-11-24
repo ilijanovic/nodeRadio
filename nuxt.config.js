@@ -20,11 +20,12 @@ export default {
   plugins: [
     { src: '@/plugins/ripple', ssr: false },
     { ssr: false, src: '@/plugins/touch' },
+    { ssr: false, src: '@/plugins/socket' },
   ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
   axios: {
-     baseURL: "/"
+    baseURL: '/',
   },
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
@@ -40,7 +41,7 @@ export default {
     '@nuxtjs/pwa',
   ],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  
+
   serverMiddleware: ['~/server'],
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

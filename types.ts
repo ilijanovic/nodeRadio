@@ -3,7 +3,8 @@
 export interface StateInterface {
     radios: RadioInterface[],
     selectedRadio: RadioInterface | {},
-    playing: boolean
+    playing: boolean,
+    soundControl: boolean
 }
 
 export interface RadioInterface {
